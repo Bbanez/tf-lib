@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ -v example.cpp TF/TF.cpp -o example
