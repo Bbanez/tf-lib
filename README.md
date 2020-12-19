@@ -7,11 +7,11 @@ This library is written to be used in microcontrollers (like [Arduino]()) but it
 Program should execute 2 functions, 1 every second and other every 3 seconds.
 
 ```cpp
+#include "TF/TF.h"
 #include "chrono"
 #include "ctime"
-#include "sys/time.h"
 #include "iostream"
-#include "TF/TF.h"
+#include "sys/time.h"
 
 using namespace std;
 using std::chrono::duration_cast;
@@ -19,28 +19,25 @@ using std::chrono::milliseconds;
 using std::chrono::seconds;
 using std::chrono::system_clock;
 
-unsigned long timeOffset = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-
-unsigned long millis() {
-  return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - timeOffset;
+unsigned long timeOffset =
+    duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    
+unsigned long millis()
+{
+  return duration_cast<milliseconds>(system_clock::now().time_since_epoch())
+             .count() -
+         timeOffset;
 }
 
-void handler1(unsigned long t) {
-  cout << t << " -> Handler 1" << endl;
-}
-void handler2(unsigned long t) {
-  cout << t << " -> Handler 2" << endl;
-}
+void handler1(unsigned long t) { cout << t << " -> Handler 1" << endl; }
+void handler2(unsigned long t) { cout << t << " -> Handler 2" << endl; }
 
-int main() {
-  // Create TF object
+int main()
+{
   TF tf = TF(2, &millis);
-  // Register 1st function
   tf.reg(1000, &handler1);
-  // Register 2nd function
   tf.reg(3000, &handler2);
-  while(1) {
-    // Check on registered function
+  while (1) {
     tf.run();
   }
 }
