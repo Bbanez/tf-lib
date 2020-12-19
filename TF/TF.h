@@ -13,7 +13,7 @@ private:
   unsigned long (*tf)();
   unsigned long *handlersTime;
   unsigned long *handlersTriggerAt;
-  unsigned char handlerSize = 0;
+  unsigned char handlerSize    = 0;
   unsigned char handlerPointer = 0;
   void (*handlers[256])(unsigned long cTime);
 };

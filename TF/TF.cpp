@@ -2,17 +2,17 @@
 
 TF::TF(unsigned char size, unsigned long (*timeFunction)())
 {
-  tf = timeFunction;
-  handlerSize = size;
-  handlersTime = new unsigned long[size];
+  tf                = timeFunction;
+  handlerSize       = size;
+  handlersTime      = new unsigned long[size];
   handlersTriggerAt = new unsigned long[size];
 }
 bool TF::reg(unsigned long time, void (*handler)(unsigned long cTime))
 {
   if (handlerPointer < handlerSize) {
-    handlersTime[handlerPointer] = time;
+    handlersTime[handlerPointer]      = time;
     handlersTriggerAt[handlerPointer] = tf() + time;
-    handlers[handlerPointer] = handler;
+    handlers[handlerPointer]          = handler;
     handlerPointer++;
     return true;
   }
